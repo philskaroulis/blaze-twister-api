@@ -164,7 +164,7 @@ router.route('/people/:person_id')
     });
 
 // REGISTER ROUTES
-app.use('/api', router);
+app.use('/', router);
 
 // START THE SERVER
 app.listen(port);
