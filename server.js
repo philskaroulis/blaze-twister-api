@@ -78,13 +78,24 @@ router.route('/projects/:project_id')
         Project.findById(req.params.project_id, function(err, project) {
             if (err)
                 res.send(err);
-            project.name        = req.body.name;
-            project.description = req.body.description;
+            project.name        = req.body.name || project.name;
+            project.description = req.body.description || project.description;
             project.save(function(err) {
                 if (err)
                     res.send(err);
                 res.json({ message: 'Project updated!' });
             });
+        });
+    })
+
+    // delete the project with this id DELETE /api/projects/:project_id)
+    .delete(function(req, res) {
+        Project.remove({
+            _id: req.params.project_id
+        }, function(err, project) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Project successfully deleted' });
         });
     });
 
@@ -128,16 +139,27 @@ router.route('/people/:person_id')
 
     // update the person with this id (PUT /api/people/:person_id)
     .put(function(req, res) {
-        Person.findById(req.params.person_id, function(err, people) {
+        Person.findById(req.params.person_id, function(err, person) {
             if (err)
                 res.send(err);
-            people.name        = req.body.name;
-            people.description = req.body.description;
-            people.save(function(err) {
+            person.firstName = req.body.firstName || person.firstName;
+            person.lastName  = req.body.lastName || person.lastName;
+            person.save(function(err) {
                 if (err)
                     res.send(err);
-                res.json({ message: 'people updated!' });
+                res.json({ message: 'Person updated!' });
             });
+        });
+    })
+
+    // delete the person with this id DELETE /api/projects/:person_id)
+    .delete(function(req, res) {
+        Person.remove({
+            _id: req.params.person_id
+        }, function(err, person) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Person successfully deleted' });
         });
     });
 
