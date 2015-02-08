@@ -53,9 +53,9 @@ router.route('/projects')
 
 // on routes that end in /persons
 // ----------------------------------------------------
-router.route('/persons')
+router.route('/people')
 
-    // create a person (accessed at POST http://localhost:8080/api/persons)
+    // create a person (accessed at POST http://localhost:8080/api/people)
     .post(function(req, res) {
         var person = new Person();
         person.firstName = req.body.firstName;
