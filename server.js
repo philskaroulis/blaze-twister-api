@@ -35,7 +35,7 @@ router.get('/', function(req, res) {
 
 // more routes for our API will happen here
 
-// on routes that end in /bears
+// on routes that end in /projects
 // ----------------------------------------------------
 router.route('/projects')
 
@@ -57,6 +57,34 @@ router.route('/projects')
             if (err)
                 res.send(err);
             res.json(projects);
+        });
+    });
+
+// on routes that end in /projects/:project_id
+// ----------------------------------------------------
+router.route('/projects/:project_id')
+
+    // get the project with this id (GET /api//projects/:project_id)
+    .get(function(req, res) {
+        Project.findById(req.params.project_id, function(err, project) {
+            if (err)
+                res.send(err);
+            res.json(project);
+        });
+    })
+
+    // update the project with this id (PUT /api/projects/:project_id)
+    .put(function(req, res) {
+        Project.findById(req.params.project_id, function(err, project) {
+            if (err)
+                res.send(err);
+            project.name        = req.body.name;
+            project.description = req.body.description;
+            project.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'Project updated!' });
+            });
         });
     });
 
@@ -82,6 +110,34 @@ router.route('/people')
             if (err)
                 res.send(err);
             res.json(people);
+        });
+    });
+
+// on routes that end in /people/:person_id
+// ----------------------------------------------------
+router.route('/people/:person_id')
+
+    // get the person with this id (GET /api//people/:person_id)
+    .get(function(req, res) {
+        Person.findById(req.params.person_id, function(err, person) {
+            if (err)
+                res.send(err);
+            res.json(person);
+        });
+    })
+
+    // update the person with this id (PUT /api/people/:person_id)
+    .put(function(req, res) {
+        Person.findById(req.params.person_id, function(err, people) {
+            if (err)
+                res.send(err);
+            people.name        = req.body.name;
+            people.description = req.body.description;
+            people.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'people updated!' });
+            });
         });
     });
 
