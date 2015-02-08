@@ -33,6 +33,40 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+// more routes for our API will happen here
+
+// on routes that end in /bears
+// ----------------------------------------------------
+router.route('/projects')
+
+    // create a project (accessed at POST http://localhost:8080/api/projects)
+    .post(function(req, res) {
+        var project = new Project();
+        project.name        = req.body.name;
+        project.description = req.body.description;
+        project.save(function(err) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Project created!' });
+        });
+    });
+
+// on routes that end in /persons
+// ----------------------------------------------------
+router.route('/persons')
+
+    // create a person (accessed at POST http://localhost:8080/api/persons)
+    .post(function(req, res) {
+        var person = new Person();
+        person.firstName = req.body.firstName;
+        person.lastName  = req.body.lastName;
+        person.save(function(err) {
+            if (err)
+                res.send(err);
+            res.json({ message: 'Person created!' });
+        });
+    });
+
 // REGISTER ROUTES
 app.use('/api', router);
 
