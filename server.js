@@ -39,7 +39,7 @@ router.get('/', function(req, res) {
 // ----------------------------------------------------
 router.route('/projects')
 
-    // create a project (accessed at POST http://localhost:8080/api/projects)
+    // create a project (POST /api/projects)
     .post(function(req, res) {
         var project = new Project();
         project.name        = req.body.name;
@@ -49,13 +49,22 @@ router.route('/projects')
                 res.send(err);
             res.json({ message: 'Project created!' });
         });
+    })
+
+    // get all the projects (GET /api/projects)
+    .get(function(req, res) {
+        Project.find(function(err, projects) {
+            if (err)
+                res.send(err);
+            res.json(projects);
+        });
     });
 
 // on routes that end in /persons
 // ----------------------------------------------------
 router.route('/people')
 
-    // create a person (accessed at POST http://localhost:8080/api/people)
+    // create a person (POST /api/people)
     .post(function(req, res) {
         var person = new Person();
         person.firstName = req.body.firstName;
@@ -64,6 +73,15 @@ router.route('/people')
             if (err)
                 res.send(err);
             res.json({ message: 'Person created!' });
+        });
+    })
+
+    // get all the people (GET /api/people)
+    .get(function(req, res) {
+        Person.find(function(err, people) {
+            if (err)
+                res.send(err);
+            res.json(people);
         });
     });
 
