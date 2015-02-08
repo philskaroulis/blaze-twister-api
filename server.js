@@ -15,6 +15,8 @@ app.use(bodyParser.json());
 
 // set mongoose
 mongoose.connect(dbConnect);
+var Project = require('./models/project');
+var Person = require('./models/person');
 
 // DEFINE ROUTES
 var router = express.Router();              // get an instance of the express Router
